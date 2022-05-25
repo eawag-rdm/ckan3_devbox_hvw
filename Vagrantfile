@@ -82,6 +82,11 @@ Vagrant.configure("2") do |config|
     pip install -r /usr/lib/ckan/default/src/ckan/dev-requirements.txt
     python /usr/lib/ckan/default/src/ckan/setup.py develop
 
+    ### XLoader (Replacement for DataPusher)
+    pip install ckanext-xloader
+    pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
+    pip install -U requests[security]
+
     # Configure Postgres
     sudo -u postgres psql -c "CREATE ROLE ckan_default PASSWORD 'notasecret' LOGIN;"
     sudo -u postgres psql -c "CREATE DATABASE ckan_default OWNER ckan_default ENCODING 'utf-8';"
@@ -140,3 +145,11 @@ Vagrant.configure("2") do |config|
 
   SHELL
 end
+
+# add added id_rsa.pub to ~vagrant/.ssh/authorized_keys
+
+# local host:
+
+## alias ckanv="ssh vagrant@192.168.33.10 /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini"
+
+## alias ckanv_down="ssh vagrant@192.168.33.10 killall ckan"
