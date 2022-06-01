@@ -146,6 +146,8 @@ Vagrant.configure("2") do |config|
   SHELL
 end
 
+# Various steps not put into code yet
+
 # add added id_rsa.pub to ~vagrant/.ssh/authorized_keys
 
 # local host:
@@ -153,3 +155,50 @@ end
 ## alias ckanv="ssh vagrant@192.168.33.10 /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini"
 
 ## alias ckanv_down="ssh vagrant@192.168.33.10 killall ckan"
+
+## alias ckanv_run='ssh vagrant@192.168.33.10 WERKZEUG_DEBUG_PIN=off /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini run'
+
+## in VM: sudo apt-get install postfix
+### get around interactive postfix configuraton somehow
+### try: DEBIAN_FRONTEND=noninteractive apt-get -yq install postfix + manual config as "local only"
+
+## sudo apt-get install alpine
+
+## /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=vagrant@localhost name=admin
+### deal with interactvity, set password
+
+## in ckan.ini:
+### ckan.site_url = http://localhost:5050
+
+## Modify /var/solr/data/ckan0/conf/solrconfig.xml:
+### "${update.autoCreateFields:true}" -> "${update.autoCreateFields:false}"
+### See https://stackoverflow.com/a/48153400
+
+## Install postgis for ckanext-spatial
+### following the instructions here:
+### https://docs.ckan.org/projects/ckanext-spatial/en/latest/install.html
+### apt-get install postgresql-13-postgis-3
+### sudo -u postgres psql -d ckan_default -f /usr/share/postgresql/13/contrib/postgis-3.1/postgis.sql 
+### sudo -u postgres psql -d ckan_default -f /usr/share/postgresql/13/contrib/postgis-3.1/spatial_ref_sys.sql
+### sudo -u postgres psql -d ckan_default -c 'ALTER VIEW geometry_columns OWNER TO ckan_default;'
+### sudo -u postgres psql -d ckan_default -c 'ALTER TABLE spatial_ref_sys OWNER TO ckan_default;'
+### sudo apt-get install python3-dev libxml2-dev libxslt1-dev libgeos-c1v5
+
+### sudo apt-get install libproj-dev
+### This dependency provides proj.h, necessary to install pyproj==2.6.1
+### NOT DOCUMENTED
+
+## Install ckanext-spatial
+
+## Install ckanext-harvest
+### git clone git@github.com:ckan/ckanext-harvest.git ckanext-harvest
+### Switch to seemingly stable release:
+### git checkout v1.4.0
+### git switch -c v1.4.0
+
+### pip install -r pip-requirements.txt
+### python setup.py develop
+
+
+
+
