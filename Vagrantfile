@@ -199,6 +199,27 @@ end
 ### pip install -r pip-requirements.txt
 ### python setup.py develop
 
+## Install ckanext-ldap
+### https://github.com/NaturalHistoryMuseum/ckanext-ldap.git
+### python-ldap dependencies
+### apt-get install libldap-2.4-2 libldap2-dev libsasl2-dev libssl-dev ldap-utils libldap-common
+### Install python-ldap into virtualenv:
+### pip install python-ldap==3.4.0
+### pip install -r requirements.txt
+### python setup.py develop
+## Install eawag Root CA (see Wiki)
+### mkdir /usr/local/share//ca-certificates/extra
+### Copy certificate
+### from
+### https://wiki.eawag.ch/download/attachments/2293969/EERootCA01-PEM.crt?version=1&modificationDate=1594720566060&api=v2
+### to /usr/local/share//ca-certificates/extra
+### sudo update-ca-certificates
+### reboot
+### Check whether this is correctly nstalled using:
+### ldapsearch -h eaw-dc02.eawag.wroot.emp-eaw.ch -x -ZZ
+
+
+
 
 
 
