@@ -218,6 +218,11 @@ end
 ### Check whether this is correctly nstalled using:
 ### ldapsearch -h eaw-dc02.eawag.wroot.emp-eaw.ch -x -ZZ
 
+## Install ckanext-scheming
+### git clone https://github.com/ckan/ckanext-scheming.git ckanext-scheming
+### In activated venv: python setup.py develop
+
+## Install ckanext-eaw_schema
 
 
 
