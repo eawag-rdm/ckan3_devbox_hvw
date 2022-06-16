@@ -150,6 +150,9 @@ end
 
 # add added id_rsa.pub to ~vagrant/.ssh/authorized_keys
 
+## install to have available `killall`
+### sudo apt-get install psmisc
+
 # local host:
 
 ## alias ckanv="ssh vagrant@192.168.33.10 /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini"
@@ -188,7 +191,7 @@ end
 ### This dependency provides proj.h, necessary to install pyproj==2.6.1
 ### NOT DOCUMENTED
 
-## Install ckanext-spatial
+## Install ckanext-spatial (@master)
 
 ## Install ckanext-harvest
 ### git clone git@github.com:ckan/ckanext-harvest.git ckanext-harvest
@@ -212,17 +215,26 @@ end
 ### Copy certificate
 ### from
 ### https://wiki.eawag.ch/download/attachments/2293969/EERootCA01-PEM.crt?version=1&modificationDate=1594720566060&api=v2
-### to /usr/local/share//ca-certificates/extra
+### to /usr/local/share/ca-certificates/extra
 ### sudo update-ca-certificates
 ### reboot
 ### Check whether this is correctly nstalled using:
 ### ldapsearch -h eaw-dc02.eawag.wroot.emp-eaw.ch -x -ZZ
+### This check doesn't seem to work well.
 
 ## Install ckanext-scheming
 ### git clone https://github.com/ckan/ckanext-scheming.git ckanext-scheming
 ### In activated venv: python setup.py develop
 
+## Install https://github.com/eawag-rdm/ckanext-eaw_theme.git
+### git switch -c int_rel2_hvw origin/int_rel2_hvw
+
+
 ## Install ckanext-eaw_schema
+### git switch -c int_rel2_hvw origin/int_rel2_hvw
+
+## interactive update of logo (admin dashboard):
+### lib/default/src/ckanext-eaw_theme/ckanext/eaw_theme/public/images/combined_logo1.svg
 
 
 
