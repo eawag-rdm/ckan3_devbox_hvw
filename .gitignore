@@ -1,5 +1,6 @@
 /etc/
 /lib/
-/var/
+/var_ckan/
+/var_solr/
 *~
 .vagrant
