@@ -229,12 +229,17 @@ end
 ## Install https://github.com/eawag-rdm/ckanext-eaw_theme.git
 ### git switch -c int_rel2_hvw origin/int_rel2_hvw
 
-
 ## Install ckanext-eaw_schema
 ### git switch -c int_rel2_hvw origin/int_rel2_hvw
 
 ## interactive update of logo (admin dashboard):
 ### lib/default/src/ckanext-eaw_theme/ckanext/eaw_theme/public/images/combined_logo1.svg
+
+## git clone git@github.com:eawag-rdm/ckanext-hierarchy.git@int_rel2_hvw
+### install and load in ckan.ini
+
+## git@github.com:eawag-rdm/ckanext-repeating_s.git@inte_rel2_hvw
+### install and load in ckan.ini
 
 
 
