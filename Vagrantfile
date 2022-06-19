@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "./lib", "/usr/lib/ckan", create: true, type: "nfs", mount_options: ['rw,nfsvers=4,proto=tcp'] 
   config.vm.synced_folder "./etc/ckan", "/etc/ckan", create: true, type: "nfs", mount_options: ['rw,nfsvers=4,proto=tcp']
-  config.vm.synced_folder "./var", "/var/lib/ckan", create: true, type: "nfs", mount_options: ['rw,nfsvers=4,proto=tcp'] 
+  config.vm.synced_folder "./var_ckan", "/var/lib/ckan", create: true, type: "nfs", mount_options: ['rw,nfsvers=4,proto=tcp']
 
   config.vm.provider :libvirt do |libvirt|
     libvirt.cpus = 2
@@ -240,6 +240,10 @@ end
 
 ## git@github.com:eawag-rdm/ckanext-repeating_s.git@inte_rel2_hvw
 ### install and load in ckan.ini
+
+## copy updated schema.xml for SOLR
+### scp var_solr/data/ckan0/conf/schema.xml vagrant@192.168.33.10: && \
+### ssh vagrant@192.168.33.10 sudo mv schema.xml /var/solr/data/ckan0/conf/schema.xml
 
 
 
