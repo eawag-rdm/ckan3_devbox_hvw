@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian/bullseye64"
   # Adapter setting is specific to the host setup, here a bridge interface ("br0").
   # Otherwise probably needs to be new-fangled "enp0s3xyz" - type interface-name. 
-  config.vm.network :forwarded_port, guest: 5000, host: 5050
+  config.vm.network :forwarded_port, guest: 5050, host: 5050
   config.vm.network :forwarded_port, guest: 8983, host: 8983 
   config.vm.network "private_network", ip: "192.168.33.10"
   # config.vm.network "public_network"
@@ -81,11 +81,6 @@ Vagrant.configure("2") do |config|
     pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
     pip install -r /usr/lib/ckan/default/src/ckan/dev-requirements.txt
     python /usr/lib/ckan/default/src/ckan/setup.py develop
-
-    ### XLoader (Replacement for DataPusher)
-    pip install ckanext-xloader
-    pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
-    pip install -U requests[security]
 
     # Configure Postgres
     sudo -u postgres psql -c "CREATE ROLE ckan_default PASSWORD 'notasecret' LOGIN;"
@@ -166,6 +161,7 @@ end
 ### try: DEBIAN_FRONTEND=noninteractive apt-get -yq install postfix + manual config as "local only"
 
 ## sudo apt-get install alpine
+## sudo apt-get install curl
 
 ## /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini sysadmin add admin email=vagrant@localhost name=admin
 ### deal with interactvity, set password
@@ -243,9 +239,21 @@ end
 
 ## copy updated schema.xml for SOLR
 ### scp var_solr/data/ckan0/conf/schema.xml vagrant@192.168.33.10: && \
-### ssh vagrant@192.168.33.10 sudo mv schema.xml /var/solr/data/ckan0/conf/schema.xml
+### ssh vagrant@192.168.33.10 'sudo mv schema.xml /var/solr/data/ckan0/conf/schema.xml' && \
+### ssh vagrant@192.168.33.10 'sudo chown solr:solr /var/solr/data/ckan0/conf/schema.xml'
 
 
-
-
-
+## Install Datapusher (xloader is not working, issue #140 doesn't seem to be fixed for us
+### sudo apt-get install python3-dev build-essential libxslt1-dev libxml2-dev zlib1g-dev libffi-dev
+### python3 -m venv /usr/lib/ckan/datapusher
+### mkdir /usr/lib/ckan/datapusher/src
+### cd /usr/lib/ckan/datapusher/src
+### git clone https://github.com/ckan/datapusher
+### cd datapusher; git switch -c 0.0.18 0.0.18
+### [activated venv]
+### pip install -r requirements.txt
+### python setup.py develop
+### sudo /usr/lib/ckan/datapusher/bin/pip install uwsgi
+### On the host:
+#### alias ckanv_dp_run='ssh vagrant@192.168.33.10 /usr/lib/ckan/datapusher/bin/uwsgi --enable-threads -i /usr/lib/ckan/datapusher/src/datapusher/deployment/datapusher-uwsgi.ini'
+#### alias ckanv_dp_down='ssh vagrant@192.168.33.10 sudo pkill -f uwsgi -9'
